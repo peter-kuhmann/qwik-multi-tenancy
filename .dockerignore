@@ -1,0 +1,57 @@
+# flyctl launch added from .gitignore
+# Build
+dist
+lib
+lib-types
+server
+tmp
+.idea
+.vscode
+.git
+assets
+brainstorming
+
+# Development
+node_modules
+**/node_modules
+
+# Cache
+**/.cache
+**/.mf
+**/.rollup.cache
+**/tsconfig.tsbuildinfo
+
+# Logs
+**/logs
+**/*.log
+**/npm-debug.log*
+**/yarn-debug.log*
+**/yarn-error.log*
+**/pnpm-debug.log*
+**/lerna-debug.log*
+
+# Editor
+**/.vscode/extensions.json
+!**/.vscode/extensions.json
+**/.idea
+**/.DS_Store
+**/*.suo
+**/*.ntvs*
+**/*.njsproj
+**/*.sln
+**/*.sw?
+
+# Yarn
+**/.yarn/*
+!**/.yarn/releases
+
+# flyctl launch added from .idea/.gitignore
+# Default ignored files
+.idea/shelf
+.idea/workspace.xml
+# Editor-based HTTP Client requests
+.idea/httpRequests
+
+# flyctl launch added from node_modules/tailwindcss/stubs/.gitignore
+!node_modules/tailwindcss/stubs/**/*
+fly.toml

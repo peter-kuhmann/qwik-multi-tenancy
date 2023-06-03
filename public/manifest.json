@@ -1,0 +1,9 @@
+{
+  "$schema": "https://json.schemastore.org/web-manifest-combined.json",
+  "name": "Multi-tenancy with Qwik ⚡️ | Peter Kuhmann",
+  "short_name": "Multi-tenancy with Qwik",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#fff",
+  "description": "This application demonstrates how to build a multi-tenant web application using Qwik."
+}
