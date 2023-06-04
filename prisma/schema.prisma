@@ -10,3 +10,9 @@ datasource db {
   url          = env("DATABASE_URL")
   relationMode = "prisma"
 }
+
+model Tenant {
+  id               String @id() @default(uuid())
+  builtInSubdomain String @unique()
+  name             String
+}
