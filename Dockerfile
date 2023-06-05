@@ -4,7 +4,7 @@ COPY package.json package.json
 COPY yarn.lock yarn.lock
 RUN yarn --frozen-lockfile
 COPY . .
-#RUN yarn prisma generate
+RUN yarn prisma generate
 RUN yarn build
 
 FROM node:18.16.0-alpine
