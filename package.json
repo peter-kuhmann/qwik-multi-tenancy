@@ -55,6 +55,7 @@
   },
   "dependencies": {
     "@prisma/client": "4.15.0",
+    "lru-cache": "^9.1.2",
     "zod": "^3.21.4"
   }
 }

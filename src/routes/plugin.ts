@@ -1,6 +1,7 @@
 import { routeLoader$ } from "@builder.io/qwik-city";
 import { Env } from "~/env";
 import { getPrisma } from "~/db/prisma";
+import { LRUCache } from "lru-cache";
 
 export type UrlInfo =
   | {
@@ -36,11 +37,22 @@ export type ResolvedTenant = {
   name: string;
 };
 
+const ResolvedTenantCache = new LRUCache<string, ResolvedTenant>({
+  max: 1000,
+  ttl: 30 * 1000, // 30s
+});
+
 export const useTenant = routeLoader$(
   async ({ resolveValue }): Promise<ResolvedTenant | undefined> => {
     const urlInfo = await resolveValue(useUrlInfo);
 
     if (!urlInfo.isBase) {
+      const cacheHit = ResolvedTenantCache.get(urlInfo.subdomain);
+
+      if (cacheHit) {
+        return cacheHit;
+      }
+
       const tenant = await getPrisma().tenant.findUnique({
         where: {
           builtInSubdomain: urlInfo.subdomain,
@@ -48,10 +60,14 @@ export const useTenant = routeLoader$(
       });
 
       if (tenant) {
-        return {
+        const resolvedTenant = {
           id: tenant.id,
           name: tenant.name,
         };
+
+        ResolvedTenantCache.set(urlInfo.subdomain, resolvedTenant);
+
+        return resolvedTenant;
       }
     }
   }
