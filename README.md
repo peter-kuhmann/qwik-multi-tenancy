@@ -12,6 +12,7 @@ PlanetScale and Fly.io. 🏎️
 * [📡 Involved technologies](#-involved-technologies)
 * [🏷️ Git tags](#-git-tags)
   * [1️⃣ `bootstrapped`](#1-bootstrapped)
+  * [2️⃣ `tenant-resolver`](#2-tenant-resolver)
 * [🌩️ Hosting](#-hosting)
 * [🛠️ Development](#-development)
   * [⚙️ Start locally](#-start-locally)
@@ -38,6 +39,19 @@ Bootstrapped project that includes:
 - `fly.toml` created
 - `Dockerfile` created
 - Initial `README.md`
+
+## 2️⃣ `tenant-resolver`
+
+This code state includes:
+- Prisma client
+- DB seed script
+- Environment variables validation
+- `BASE_HOSTNAME` env var
+- `useUrlInfo()` route loader
+- `useTenant()` route loader
+- Three screens: Base screen + subdomain screens: Tenant not found and tenant found
+- `Dockerfile` that generates prisma client
+- `fly.toml` with env var section
 
 # 🌩️ Hosting
 The app is meant to be hosted on [Fly.io 🔗](https://fly.io).
@@ -87,14 +101,18 @@ Create two `CNAME` records:
 - `yourdomain.com > your-fly-url.fly.dev`
 - `*.yourdomain.com > your-fly-url.fly.dev`
 
-3️⃣ Allocate an IP v4 address:
+3️⃣ Allocate a **dedicated** IP v4 address:
 This is necessary, to issue an SSL certificate for the wildcard subdomains.
 ```bash
 fly ips allocate-v4
 ```
+
+⚠️ A dedicated v4 IP address costs 2$/month (June/2023): [https://fly.io/docs/about/pricing/#anycast-ip-addresses 🔗](https://fly.io/docs/about/pricing/#anycast-ip-addresses)
 
 4️⃣ Issue certificates:
 ```bash
 fly certs add "yourdomain.com"
 fly certs add "*.yourdomain.com"
 ```
+
+⚠️ A wildcard certificate costs 1$/month (June/2023): [https://fly.io/docs/about/pricing/#managed-ssl-certificates 🔗](https://fly.io/docs/about/pricing/#managed-ssl-certificates)
