@@ -6,28 +6,42 @@ export default component$(() => {
   const urlInfo = useUrlInfo();
   const tenant = useTenant();
 
-  console.log("url info =", urlInfo.value);
-  console.log("tenant =", tenant.value);
+  if (urlInfo.value.isBase) {
+    return (
+      <div class={"flex flex-col items-center justify-center h-full"}>
+        <h1>Multi-Tenancy with Qwik ⚡️</h1>
+        <p>Please request your own tenant installation!</p>
+        <p>This application uses:</p>
+        <ul>
+          <li>
+            <a href={"https://qwik.builder.io/"}>Qwik 🔗</a>
+          </li>
+          <li>
+            <a href={"https://www.prisma.io/"}>Prisma 🔗</a>
+          </li>
+          <li>
+            <a href={"https://planetscale.com/"}>PlanetScale 🔗</a>
+          </li>
+          <li>
+            <a href={"https://fly.io/"}>Fly.io 🔗</a>
+          </li>
+        </ul>
+      </div>
+    );
+  }
+
+  if (!tenant.value) {
+    return (
+      <div class={"flex flex-col items-center justify-center h-full"}>
+        <h1>Tenant installation not found 😭</h1>
+      </div>
+    );
+  }
 
   return (
-    <div class={"h-full flex flex-col justify-center items-center"}>
-      <h1>Multi-Tenancy with Qwik ⚡️</h1>
-      <p>We will build a multi tenant full-stack web application using:</p>
-
-      <ul>
-        <li>
-          <a href={"https://qwik.builder.io/"}>Qwik 🔗</a>
-        </li>
-        <li>
-          <a href={"https://www.prisma.io/"}>Prisma 🔗</a>
-        </li>
-        <li>
-          <a href={"https://planetscale.com/"}>PlanetScale 🔗</a>
-        </li>
-        <li>
-          <a href={"https://fly.io/"}>Fly.io 🔗</a>
-        </li>
-      </ul>
+    <div class={"flex flex-col items-center justify-center h-full"}>
+      <h1>Welcome to tenant "{tenant.value.name}" 🚀</h1>
+      <p>This was very simple to set up! 🤩</p>
     </div>
   );
 });
