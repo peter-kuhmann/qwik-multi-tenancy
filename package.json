@@ -52,5 +52,9 @@
   },
   "prisma": {
     "seed": "tsx src/db/seed.ts"
+  },
+  "dependencies": {
+    "@prisma/client": "4.15.0",
+    "zod": "^3.21.4"
   }
 }
