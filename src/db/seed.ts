@@ -4,7 +4,7 @@ import DevTenant from "~/db/DevTenant";
 const prisma = getPrisma();
 
 async function main() {
-  await getPrisma().tenant.upsert({
+  await prisma.tenant.upsert({
     where: {
       id: DevTenant.id,
     },
