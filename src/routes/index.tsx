@@ -21,6 +21,9 @@ export default component$(() => {
   return <TenantFoundHomeScreen />;
 });
 
-export const head: DocumentHead = {
-  title: "Multi-Tenancy with Qwik ⚡️ | Peter Kuhmann",
+export const head: DocumentHead = ({ resolveValue }) => {
+  const tenant = resolveValue(useTenant);
+  return {
+    title: tenant ? tenant.name : "Multi-Tenancy with Qwik ⚡️ | Peter Kuhmann",
+  };
 };
