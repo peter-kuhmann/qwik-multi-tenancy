@@ -9,6 +9,7 @@ import { redirectToHomeIfNoTenantOrLoggedIn } from "~/utils/redirects";
 import { fetchUserByEmail } from "~/db/models/users";
 import { getTenantByUrl } from "~/logic/tenants/read";
 import { sendLoginConfirmationLinkMail } from "~/mail/send/auth";
+import { tenantHead } from "~/utils/head";
 
 export const onGet: RequestHandler = redirectToHomeIfNoTenantOrLoggedIn;
 
@@ -122,3 +123,5 @@ export const useLoginAction = routeAction$(
     email: z.string().email(),
   })
 );
+
+export const head = tenantHead("Login");

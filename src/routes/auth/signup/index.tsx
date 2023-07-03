@@ -13,6 +13,7 @@ import AuthFlowJwtManager from "~/crypto/AuthFlowJwtManager";
 import { redirectToHomeIfNoTenantOrLoggedIn } from "~/utils/redirects";
 import { sendSignUpConfirmationLinkMail } from "~/mail/send/auth";
 import { getTenantByUrl } from "~/logic/tenants/read";
+import { tenantHead } from "~/utils/head";
 
 export const onGet: RequestHandler = redirectToHomeIfNoTenantOrLoggedIn;
 
@@ -136,3 +137,5 @@ export const useSignUpAction = routeAction$(
     email: z.string().email(),
   })
 );
+
+export const head = tenantHead("Sign up");

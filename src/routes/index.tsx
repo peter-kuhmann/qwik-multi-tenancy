@@ -5,6 +5,7 @@ import { useTenant } from "~/routes/plugin@tenants";
 import ProductBaseScreen from "~/components/routes/index/ProductBaseScreen";
 import TenantNotFoundScreen from "~/components/routes/TenantNotFoundScreen";
 import TenantFoundHomeScreen from "~/components/routes/index/TenantFoundHomeScreen";
+import { tenantHead } from "~/utils/head";
 
 export default component$(() => {
   const urlInfo = useUrlInfo();
@@ -21,9 +22,4 @@ export default component$(() => {
   return <TenantFoundHomeScreen />;
 });
 
-export const head: DocumentHead = ({ resolveValue }) => {
-  const tenant = resolveValue(useTenant);
-  return {
-    title: tenant ? tenant.name : "Multi-Tenancy with Qwik ⚡️ | Peter Kuhmann",
-  };
-};
+export const head = tenantHead();
