@@ -12,6 +12,7 @@ import { z } from "zod";
 import AuthFlowJwtManager from "~/crypto/AuthFlowJwtManager";
 import { redirectToHomeIfNoTenantOrLoggedIn } from "~/utils/redirects";
 import { sendSignUpConfirmationLinkMail } from "~/mail/send/auth";
+import { getTenantByUrl } from "~/logic/tenants/read";
 
 export const onGet: RequestHandler = redirectToHomeIfNoTenantOrLoggedIn;
 
@@ -107,19 +108,26 @@ export default component$(() => {
 export const ConfirmSignUpTokenQueryParameterName = "token";
 
 export const useSignUpAction = routeAction$(
-  ({ email, name }, { request }) => {
-    const jwt = AuthFlowJwtManager.createSignedJwt({
-      type: "signUpRequest",
-      email,
-      name,
-    });
+  async ({ email, name }, { request, url }) => {
+    const tenant = await getTenantByUrl(url);
 
-    const confirmUrl = new URL(request.url);
-    confirmUrl.pathname = "/auth/signup/confirm";
-    confirmUrl.search = "";
-    confirmUrl.searchParams.set(ConfirmSignUpTokenQueryParameterName, jwt);
+    if (tenant) {
+      const jwt = AuthFlowJwtManager.createSignedJwt({
+        type: "signUpRequest",
+        email,
+        name,
+      });
 
-    sendSignUpConfirmationLinkMail(confirmUrl.href, { email, name });
+      const confirmUrl = new URL(request.url);
+      confirmUrl.pathname = "/auth/signup/confirm";
+      confirmUrl.search = "";
+      confirmUrl.searchParams.set(ConfirmSignUpTokenQueryParameterName, jwt);
+
+      sendSignUpConfirmationLinkMail(confirmUrl.href, tenant.name, {
+        email,
+        name,
+      });
+    }
 
     return { success: true };
   },

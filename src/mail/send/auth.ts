@@ -7,20 +7,21 @@ export type MailRecipient = {
 
 export async function sendLoginConfirmationLinkMail(
   loginConfirmationLinkUrl: string,
+  tenantName: string,
   { email, name }: MailRecipient
 ) {
   await getMailer().sendMail({
     ...getDefaultSenderAndFrom(),
     to: email,
-    subject: `Confirm Login for Qwik Multi-Tenancy 🔐`,
+    subject: `🔐 Confirm Login for ${tenantName}`,
     text: `Hello ${name} 👋
 
-here is your login confirmation link for Qwik Multi-Tenancy:
+here is your login confirmation link for ${tenantName}:
 
 ${loginConfirmationLinkUrl}
 
 
-Have fun with multi-tenancy!
+Have fun at ${tenantName}!
 
 All the best ☀️
 Peter`,
@@ -29,20 +30,21 @@ Peter`,
 
 export async function sendSignUpConfirmationLinkMail(
   loginConfirmationLinkUrl: string,
+  tenantName: string,
   { email, name }: MailRecipient
 ) {
   await getMailer().sendMail({
     ...getDefaultSenderAndFrom(),
     to: email,
-    subject: `Confirm Sign Up for Qwik Multi-Tenancy ✍️`,
+    subject: `✍️ Confirm Sign Up for ${tenantName}`,
     text: `Hello ${name} 👋
 
-here is your sign up confirmation link for Qwik Multi-Tenancy:
+here is your sign up confirmation link for ${tenantName}:
 
 ${loginConfirmationLinkUrl}
 
 
-Have fun with multi-tenancy!
+Have fun at ${tenantName}!
 
 All the best ☀️
 Peter`,

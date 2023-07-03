@@ -109,7 +109,7 @@ export const useLoginAction = routeAction$(
         confirmUrl.search = "";
         confirmUrl.searchParams.set(ConfirmLoginTokenQueryParameterName, jwt);
 
-        sendLoginConfirmationLinkMail(confirmUrl.href, {
+        sendLoginConfirmationLinkMail(confirmUrl.href, tenant.name, {
           email,
           name: user.name,
         });
