@@ -1,12 +1,6 @@
 import type { ZodType } from "zod";
 import { z } from "zod";
-import {
-  JsonWebTokenError,
-  NotBeforeError,
-  sign,
-  TokenExpiredError,
-  verify,
-} from "jsonwebtoken";
+import * as jsonwebtoken from "jsonwebtoken";
 
 export const JwtManagerSupportedAlgorithmSchema = z.enum(["ES256"]);
 
@@ -28,7 +22,7 @@ export default class JwtManager<PAYLOAD_SCHEMA extends ZodType> {
   constructor(private readonly options: JwtManagerProps<PAYLOAD_SCHEMA>) {}
 
   createSignedJwt(payload: z.infer<PAYLOAD_SCHEMA>): string {
-    return sign(
+    return jsonwebtoken.sign(
       this.options.payloadSchema.parse(payload),
       this.options.privateKey,
       {
@@ -67,7 +61,7 @@ export default class JwtManager<PAYLOAD_SCHEMA extends ZodType> {
       }
     | { success: true; payload: z.infer<PAYLOAD_SCHEMA> } {
     try {
-      const { payload } = verify(jwt, this.options.publicKey, {
+      const { payload } = jsonwebtoken.verify(jwt, this.options.publicKey, {
         complete: true,
         algorithms: [this.options.algorithm],
         issuer: this.options.issuer,
@@ -89,7 +83,7 @@ export default class JwtManager<PAYLOAD_SCHEMA extends ZodType> {
         payload: parseResult.data,
       };
     } catch (e: any) {
-      if (e instanceof NotBeforeError) {
+      if (e?.name === "NotBeforeError") {
         return {
           success: false,
           reason: "jwtNotBeforeError",
@@ -97,7 +91,7 @@ export default class JwtManager<PAYLOAD_SCHEMA extends ZodType> {
         };
       }
 
-      if (e instanceof TokenExpiredError) {
+      if (e?.name === "TokenExpiredError") {
         return {
           success: false,
           reason: "jwtExpired",
@@ -105,7 +99,7 @@ export default class JwtManager<PAYLOAD_SCHEMA extends ZodType> {
         };
       }
 
-      if (e instanceof JsonWebTokenError) {
+      if (e?.name === "JsonWebTokenError") {
         return {
           success: false,
           reason: "jwtInvalid",

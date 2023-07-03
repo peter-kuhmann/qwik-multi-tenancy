@@ -58,5 +58,3 @@ const EnvSchema = z.object({
 });
 
 export const Env = EnvSchema.parse(process.env);
-
-console.log(Env);
