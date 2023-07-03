@@ -12,7 +12,59 @@ datasource db {
 }
 
 model Tenant {
-  id               String @id() @default(uuid())
+  tenantId         String @id() @default(uuid())
   builtInSubdomain String @unique()
   name             String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  users    User[]    @relation(name: "user-tenant")
+  sessions Session[] @relation(name: "session-tenant")
+}
+
+model User {
+  userId String @id() @default(uuid())
+
+  tenant   Tenant @relation(name: "user-tenant", fields: [tenantId], references: [tenantId], onDelete: Cascade)
+  tenantId String
+
+  email String
+  name  String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  sessions Session[] @relation(name: "session-user")
+
+  @@unique([userId, tenantId])
+  @@unique([email, tenantId])
+  @@index([tenantId])
+}
+
+model Session {
+  sessionId String @id()
+
+  tenant   Tenant @relation(name: "session-tenant", fields: [tenantId], references: [tenantId], onDelete: Cascade)
+  tenantId String
+
+  user   User   @relation(name: "session-user", fields: [userId], references: [userId], onDelete: Cascade)
+  userId String
+
+  // If true, the user session shall be invalidated
+  // and a new session with a new ID shall be issued for the user.
+  // Should be marked true after changing user authorization level etc.
+  toBeReplaced Boolean @default(false)
+
+  idleExpiresAt DateTime
+
+  // Must never be changed.
+  maxExpiresAt DateTime
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([sessionId, tenantId])
+  @@index([tenantId])
+  @@index([userId])
 }

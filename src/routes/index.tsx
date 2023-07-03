@@ -1,49 +1,24 @@
 import { component$ } from "@builder.io/qwik";
 import type { DocumentHead } from "@builder.io/qwik-city";
-import { useTenant, useUrlInfo } from "~/routes/plugin";
+import { useUrlInfo } from "~/routes/plugin@urlInfo";
+import { useTenant } from "~/routes/plugin@tenants";
+import ProductBaseScreen from "~/components/routes/index/ProductBaseScreen";
+import TenantNotFoundScreen from "~/components/routes/TenantNotFoundScreen";
+import TenantFoundHomeScreen from "~/components/routes/index/TenantFoundHomeScreen";
 
 export default component$(() => {
   const urlInfo = useUrlInfo();
   const tenant = useTenant();
 
   if (urlInfo.value.isBase) {
-    return (
-      <div class={"flex flex-col items-center justify-center h-full"}>
-        <h1>Multi-Tenancy with Qwik ⚡️</h1>
-        <p>Please request your own tenant installation!</p>
-        <p>This application uses:</p>
-        <ul>
-          <li>
-            <a href={"https://qwik.builder.io/"}>Qwik 🔗</a>
-          </li>
-          <li>
-            <a href={"https://www.prisma.io/"}>Prisma 🔗</a>
-          </li>
-          <li>
-            <a href={"https://planetscale.com/"}>PlanetScale 🔗</a>
-          </li>
-          <li>
-            <a href={"https://fly.io/"}>Fly.io 🔗</a>
-          </li>
-        </ul>
-      </div>
-    );
+    return <ProductBaseScreen />;
   }
 
   if (!tenant.value) {
-    return (
-      <div class={"flex flex-col items-center justify-center h-full"}>
-        <h1>Tenant installation not found 😭</h1>
-      </div>
-    );
+    return <TenantNotFoundScreen />;
   }
 
-  return (
-    <div class={"flex flex-col items-center justify-center h-full"}>
-      <h1>Welcome to tenant "{tenant.value.name}" 🚀</h1>
-      <p>This was very simple to set up! 🤩</p>
-    </div>
-  );
+  return <TenantFoundHomeScreen />;
 });
 
 export const head: DocumentHead = {

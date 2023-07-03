@@ -1,0 +1,33 @@
+# fly.toml app configuration file generated for peter-kuhmann-projects-qwik-multi-tenancy on 2023-06-03T15:43:13+02:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = "peter-kuhmann-projects-qwik-multi-tenancy"
+primary_region = "ams"
+
+[http_service]
+  internal_port = 3000
+  force_https = true
+  auto_stop_machines = true
+  auto_start_machines = true
+  min_machines_running = 0
+
+[env]
+  BASE_HOSTNAME = "qwik-multi-tenancy.projects.peter-kuhmann.de"
+
+  EMAIL_SMTP_HOST       =   "..."
+  EMAIL_SMTP_PORT       =   ...
+  EMAIL_SMTP_SECURE     =   false/true
+  EMAIL_SMTP_FROM       =   "Name <address@domain.tld>"
+  EMAIL_SMTP_USERNAME   =   "username@domain.tld"
+  # Secrets
+  # EMAIL_SMTP_PASSWORD   =   "..."
+
+  AUTH_FLOW_JWT_EXPIRES_IN_SECONDS  =  300
+  AUTH_FLOW_JWT_ALGORITHM           = "ES256"
+  AUTH_FLOW_JWT_ISSUER              = "qwik-multi-tenancy"
+  AUTH_FLOW_JWT_AUDIENCE            = "qwik-multi-tenancy"
+  # Secrets -> use /crypto/generate_ecdsa_keys.sh to generate keys :)
+  # AUTH_FLOW_JWT_PRIVATE_KEY = "..."
+  # AUTH_FLOW_JWT_PUBLIC_KEY  = "..."

@@ -1,16 +1,9 @@
-FROM node:18.16.0-alpine as builder
-WORKDIR website
-COPY package.json package.json
-COPY yarn.lock yarn.lock
-RUN yarn --frozen-lockfile
+FROM node:20.3-alpine as builder
+WORKDIR qwik-multi-tenancy
+RUN corepack enable && corepack prepare pnpm@latest --activate
+COPY package.json pnpm-lock.yaml ./
+RUN pnpm install --frozen-lockfile
 COPY . .
-RUN yarn prisma generate
-RUN yarn build
-
-FROM node:18.16.0-alpine
-WORKDIR website
-COPY --from=builder website/node_modules node_modules
-COPY --from=builder website/dist dist
-COPY --from=builder website/server server
-COPY --from=builder website/package.json package.json
+RUN pnpm prisma generate
+RUN pnpm build
 CMD node server/entry.fastify

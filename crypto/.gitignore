@@ -1,0 +1,3 @@
+.env.vars
+*.key
+*.key.pub

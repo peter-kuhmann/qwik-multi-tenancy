@@ -6,6 +6,10 @@
 @tailwind components;
 @tailwind utilities;
 
+#qwik-inspector-info-popup {
+  display: none;
+}
+
 html, body {
   width: 100%;
   height: 100%;
@@ -17,8 +21,19 @@ html, body {
   box-sizing: border-box;
 }
 
-.text-h1 { @apply text-4xl; }
-.text-h2 { @apply text-3xl; }
+.ionicon {
+  width: 1.15em;
+  height: 1.15em;
+  vertical-align: sub;
+  display: inline-block;
+}
+
+.btn {
+  @apply normal-case;
+}
+
+.text-h1 { @apply text-3xl; }
+.text-h2 { @apply text-2xl; }
 
 h1 { @apply text-h1; }
 h2 { @apply text-h2; }

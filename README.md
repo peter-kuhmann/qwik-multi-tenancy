@@ -67,19 +67,19 @@ to host the Qwik app as a server instance.
 ## ⚙️ Start locally
 
 ```bash
-yarn start
+pnpm start
 ```
 
 ## 🏗️ Build + serve via Fastify
 
 ```bash
-yarn build
-yarn serve
+pnpm build
+pnpm serve
 ```
 
 ## 💾 Update PlanetScale schema
 ```bash
-yarn prisma db push
+pnpm prisma db push
 ```
 
 ## ⬆️ Deploying app

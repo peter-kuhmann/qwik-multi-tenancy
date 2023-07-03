@@ -6,10 +6,10 @@ const prisma = getPrisma();
 async function main() {
   await prisma.tenant.upsert({
     where: {
-      id: DevTenant.id,
+      tenantId: DevTenant.id,
     },
     create: {
-      id: DevTenant.id,
+      tenantId: DevTenant.id,
       builtInSubdomain: DevTenant.builtInSubdomain,
       name: DevTenant.name,
     },
