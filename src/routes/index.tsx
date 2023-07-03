@@ -1,5 +1,4 @@
 import { component$ } from "@builder.io/qwik";
-import type { DocumentHead } from "@builder.io/qwik-city";
 import { useUrlInfo } from "~/routes/plugin@urlInfo";
 import { useTenant } from "~/routes/plugin@tenants";
 import ProductBaseScreen from "~/components/routes/index/ProductBaseScreen";
