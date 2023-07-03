@@ -44,6 +44,8 @@ const start = async () => {
 
   // Start the fastify server
   await fastify.listen({ host: HOST, port: PORT });
+
+  console.log(`Fastify is listening on ${HOST}:${PORT}`);
 };
 
 start();

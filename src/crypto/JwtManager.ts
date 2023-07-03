@@ -1,6 +1,6 @@
 import type { ZodType } from "zod";
 import { z } from "zod";
-import * as jsonwebtoken from "jsonwebtoken";
+import jsonwebtoken from "jsonwebtoken";
 
 export const JwtManagerSupportedAlgorithmSchema = z.enum(["ES256"]);
 
