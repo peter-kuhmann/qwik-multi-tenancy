@@ -117,6 +117,7 @@ export const useSignUpAction = routeAction$(
         type: "signUpRequest",
         email,
         name,
+        tenantId: tenant.id,
       });
 
       const confirmUrl = new URL(request.url);

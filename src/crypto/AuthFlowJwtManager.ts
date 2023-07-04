@@ -12,11 +12,13 @@ export default new JwtManager({
   payloadSchema: z.discriminatedUnion("type", [
     z.object({
       type: z.literal("signUpRequest"),
-      name: z.string().min(1),
+      tenantId: z.string().nonempty(),
+      name: z.string().nonempty(),
       email: z.string().email(),
     }),
     z.object({
       type: z.literal("loginRequest"),
+      tenantId: z.string().nonempty(),
       email: z.string().email(),
     }),
   ]),

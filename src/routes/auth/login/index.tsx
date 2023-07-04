@@ -103,6 +103,7 @@ export const useLoginAction = routeAction$(
         const jwt = AuthFlowJwtManager.createSignedJwt({
           type: "loginRequest",
           email,
+          tenantId: tenant.id,
         });
 
         const confirmUrl = new URL(request.url);

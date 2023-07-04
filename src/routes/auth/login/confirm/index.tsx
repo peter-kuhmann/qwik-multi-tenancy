@@ -36,6 +36,8 @@ async function getUserForLogin(url: URL, tenant: ResolvedTenant) {
   const payload = jwtResult.payload;
   if (payload.type !== "loginRequest") return null;
 
+  if (payload.tenantId !== tenant.id) return null;
+
   return await fetchUserByEmail({
     email: payload.email,
     tenantId: tenant.id,

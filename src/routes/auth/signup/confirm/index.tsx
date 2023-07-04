@@ -35,6 +35,8 @@ async function createNewUser(url: URL, tenant: ResolvedTenant) {
   const payload = jwtResult.payload;
   if (payload.type !== "signUpRequest") return;
 
+  if (payload.tenantId !== tenant.id) return;
+
   const existingUser = await fetchUserByEmail({
     email: payload.email,
     tenantId: tenant.id,
