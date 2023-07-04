@@ -53,8 +53,14 @@ const EnvSchema = z.object({
     .default(300), // max 1hr, default 5mins
   AUTH_FLOW_JWT_ISSUER: z.string().min(1),
   AUTH_FLOW_JWT_AUDIENCE: z.string().min(1),
-  AUTH_FLOW_JWT_PRIVATE_KEY: z.string().min(1),
-  AUTH_FLOW_JWT_PUBLIC_KEY: z.string().min(1),
+  AUTH_FLOW_JWT_PRIVATE_KEY: z
+    .string()
+    .min(1)
+    .transform((value) => value.replace(/\\n/g, "\n")),
+  AUTH_FLOW_JWT_PUBLIC_KEY: z
+    .string()
+    .min(1)
+    .transform((value) => value.replace(/\\n/g, "\n")),
 });
 
 export const Env = EnvSchema.parse(process.env);
