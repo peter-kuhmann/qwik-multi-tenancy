@@ -9,18 +9,27 @@ PlanetScale and Fly.io. 🏎️
 <!-- TOC -->
 * [⚡️ Multi-tenancy demonstration using Qwik](#-multi-tenancy-demonstration-using-qwik)
 * [📚 Table of contents](#-table-of-contents)
+* [🍭 Blog articles and YouTube videos](#-blog-articles-and-youtube-videos)
 * [📡 Involved technologies](#-involved-technologies)
 * [🏷️ Git tags](#-git-tags)
-  * [1️⃣ `bootstrapped`](#1-bootstrapped)
+  * [3️⃣ `users-and-sessions`](#3-users-and-sessions)
   * [2️⃣ `tenant-resolver`](#2-tenant-resolver)
+  * [1️⃣ `bootstrapped`](#1-bootstrapped)
 * [🌩️ Hosting](#-hosting)
+* [✅ Requirements](#-requirements)
 * [🛠️ Development](#-development)
+  * [🥪 Preparation](#-preparation)
   * [⚙️ Start locally](#-start-locally)
   * [🏗️ Build + serve via Fastify](#-build--serve-via-fastify)
-  * [💾 Update PlanetScale schema](#-update-planetscale-schema)
-  * [⬆️ Deploying app](#-deploying-app)
-* [✅ Fly.io configuration](#-flyio-configuration)
+* [🛫 Fly.io deployment](#-flyio-deployment)
+  * [🥪 Preparation](#-preparation-1)
+  * [⬆️ Deploy app](#-deploy-app)
 <!-- TOC -->
+
+# 🍭 Blog articles and YouTube videos
+1️⃣ **Tenant resolver (Part 1)**
+  - 📝 Blog article: [https://peter-kuhmann.de/blog/0002_multi_tenancy_demystified_part_1_tenant_resolver/](https://peter-kuhmann.de/blog/0002_multi_tenancy_demystified_part_1_tenant_resolver/)
+  - 📽️ YouTube video: [https://youtu.be/Q7nNbJomC0I](https://youtu.be/Q7nNbJomC0I)
 
 # 📡 Involved technologies
 - [Qwik 🔗](https://qwik.builder.io/)
@@ -29,20 +38,30 @@ PlanetScale and Fly.io. 🏎️
 - [Fly.io 🔗](https://fly.io)
 
 # 🏷️ Git tags
-## 1️⃣ `bootstrapped`
 
-Bootstrapped project that includes:
-- Bootstrapped Qwik app
-- Prisma installed
-- Fastify adapter configured
-- Tailwind + DaisyUI installed
-- `fly.toml` created
-- `Dockerfile` created
-- Initial `README.md`
+## 3️⃣ `users-and-sessions`
+🌰 In a nutshell: User sign-up, login, logout and cookie based sessions.
+
+Details:
+- Prisma models `User` and `Session`
+- CRUD functions for `User` and `Session`
+- Cookie based sessions
+- Sign-up screen and flow
+- Login screen and flow
+- Logged in tenant home screen
+- Logout
+- Route loaders/hooks `useSession` and `useRequiredSession`
+- Sending emails
+- New `.env.example`
+- `fly.toml` replaced by `fly.toml.example`
+- Minor changes:
+  - Tenant cache now also caches "not found" state.
+  - `Tenant.id` renamed to `Tenant.tenantId`
 
 ## 2️⃣ `tenant-resolver`
+🌰 In a nutshell: Providing tenant context based on subdomain.
 
-This code state includes:
+Details:
 - Prisma client
 - DB seed script
 - Environment variables validation
@@ -53,6 +72,16 @@ This code state includes:
 - `Dockerfile` that generates prisma client
 - `fly.toml` with env var section
 
+## 1️⃣ `bootstrapped`
+Bootstrapped project that includes:
+- Bootstrapped Qwik app
+- Prisma installed
+- Fastify adapter configured
+- Tailwind + DaisyUI installed
+- `fly.toml` created
+- `Dockerfile` created
+- Initial `README.md`
+
 # 🌩️ Hosting
 The app is meant to be hosted on [Fly.io 🔗](https://fly.io).
 
@@ -62,10 +91,29 @@ a working docker image to be used for the Fly app.
 I use the [Fastify adapter 🔗](https://qwik.builder.io/docs/deployments/node/#installation)
 to host the Qwik app as a server instance.
 
+# ✅ Requirements
+- `fly` CLI installed
+- `pnpm` installed
+- Node 18+ installed
+- Docker installed
+
 # 🛠️ Development
 
-## ⚙️ Start locally
+## 🥪 Preparation
+1️⃣ Copy `.env.example` as `.env` and add all the variable values.
 
+2️⃣ First spin up the local test database (or use PlanetScale):
+```bash
+./.infra/start.sh
+```
+
+3️⃣ Push the database schema:
+```bash
+pnpm prisma db push
+```
+
+## ⚙️ Start locally
+Start the dev server:
 ```bash
 pnpm start
 ```
@@ -73,27 +121,36 @@ pnpm start
 ## 🏗️ Build + serve via Fastify
 
 ```bash
-pnpm build
-pnpm serve
+pnpm serve:build
 ```
 
-## 💾 Update PlanetScale schema
-```bash
-pnpm prisma db push
-```
+# 🛫 Fly.io deployment
 
-## ⬆️ Deploying app
-```bash
-fly deploy
-```
+## 🥪 Preparation
+1️⃣ Copy `fly.toml.example` as `fly.toml` and add all the variable values.
 
-# ✅ Fly.io configuration
-1️⃣ First you need to create a new Fly app via:
+__Use your PlanetScale connection string for `DATABASE_URL`!__
+
+2️⃣ First you need to create a new Fly app via:
 ```bash
 fly launch
 ```
 
-Deploy the application afterward.
+3️⃣ Now, set the following two secrets via `fly`:
+```bash
+fly secrets set AUTH_FLOW_JWT_PRIVATE_KEY="...add_value..." AUTH_FLOW_JWT_PUBLIC_KEY="...add_value..."
+```
+
+4️⃣ Update PlanetScale schema:
+```bash
+pnpm prisma db push
+```
+
+## ⬆️ Deploy app
+1️⃣ Deploy the application:
+```bash
+fly deploy
+```
 
 2️⃣ Configure your DNS records to point to fly:
 After deploying your app, you get a `fly.dev` URL.
