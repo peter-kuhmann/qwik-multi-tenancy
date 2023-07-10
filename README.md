@@ -10,8 +10,8 @@ PlanetScale and Fly.io. 🏎️
 * [⚡️ Multi-tenancy demonstration using Qwik](#-multi-tenancy-demonstration-using-qwik)
 * [📚 Table of contents](#-table-of-contents)
 * [🍭 Blog articles and YouTube videos](#-blog-articles-and-youtube-videos)
-  * [2️⃣ **Users and sessions (Part 2)**](#2-users-and-sessions-part-2)
-  * [1️⃣ **Tenant resolver (Part 1)**](#1-tenant-resolver-part-1)
+  * [2️⃣ Users and sessions (Part 2)](#2-users-and-sessions-part-2)
+  * [1️⃣ Tenant resolver (Part 1)](#1-tenant-resolver-part-1)
 * [📡 Involved technologies](#-involved-technologies)
 * [🏷️ Git tags](#-git-tags)
   * [3️⃣ `users-and-sessions`](#3-users-and-sessions)
@@ -29,11 +29,11 @@ PlanetScale and Fly.io. 🏎️
 <!-- TOC -->
 
 # 🍭 Blog articles and YouTube videos
-## 2️⃣ **Users and sessions (Part 2)**
+## 2️⃣ Users and sessions (Part 2)
 - 📝 Blog article: [https://peter-kuhmann.de/blog/0003](https://peter-kuhmann.de/blog/0003)
 - 📽️ YouTube video: [https://youtu.be/dV0Svun5_ws](https://youtu.be/dV0Svun5_ws)
 
-## 1️⃣ **Tenant resolver (Part 1)**
+## 1️⃣ Tenant resolver (Part 1)
   - 📝 Blog article: [https://peter-kuhmann.de/blog/0002](https://peter-kuhmann.de/blog/0002)
   - 📽️ YouTube video: [https://youtu.be/Q7nNbJomC0I](https://youtu.be/Q7nNbJomC0I)
 
