@@ -10,10 +10,12 @@ PlanetScale and Fly.io. 🏎️
 * [⚡️ Multi-tenancy demonstration using Qwik](#-multi-tenancy-demonstration-using-qwik)
 * [📚 Table of contents](#-table-of-contents)
 * [🍭 Blog articles and YouTube videos](#-blog-articles-and-youtube-videos)
+  * [3️⃣ Users and sessions (Part 3)](#3-users-and-sessions-part-3)
   * [2️⃣ Users and sessions (Part 2)](#2-users-and-sessions-part-2)
   * [1️⃣ Tenant resolver (Part 1)](#1-tenant-resolver-part-1)
 * [📡 Involved technologies](#-involved-technologies)
 * [🏷️ Git tags](#-git-tags)
+  * [4️⃣ `final`](#4-final)
   * [3️⃣ `users-and-sessions`](#3-users-and-sessions)
   * [2️⃣ `tenant-resolver`](#2-tenant-resolver)
   * [1️⃣ `bootstrapped`](#1-bootstrapped)
@@ -29,6 +31,10 @@ PlanetScale and Fly.io. 🏎️
 <!-- TOC -->
 
 # 🍭 Blog articles and YouTube videos
+## 3️⃣ Users and sessions (Part 3)
+- 📝 Blog article: *coming*
+- 📽️ YouTube video: [https://youtu.be/P6ioPj7ZfNA](https://youtu.be/P6ioPj7ZfNA)
+
 ## 2️⃣ Users and sessions (Part 2)
 - 📝 Blog article: [https://peter-kuhmann.de/blog/0003](https://peter-kuhmann.de/blog/0003)
 - 📽️ YouTube video: [https://youtu.be/dV0Svun5_ws](https://youtu.be/dV0Svun5_ws)
@@ -44,6 +50,16 @@ PlanetScale and Fly.io. 🏎️
 - [Fly.io 🔗](https://fly.io)
 
 # 🏷️ Git tags
+
+## 4️⃣ `final`
+- Permissions
+- User management
+- Tenant management
+- "Posts" feature
+- Cache invalidations
+- Session replacement
+- New URL paths
+- New UI layout
 
 ## 3️⃣ `users-and-sessions`
 🌰 In a nutshell: User sign-up, login, logout and cookie based sessions.
