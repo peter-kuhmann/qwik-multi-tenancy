@@ -21,6 +21,7 @@ model Tenant {
 
   users    User[]    @relation(name: "user-tenant")
   sessions Session[] @relation(name: "session-tenant")
+  posts    Post[]    @relation(name: "post-tenant")
 }
 
 model User {
@@ -36,6 +37,9 @@ model User {
   updatedAt DateTime @updatedAt
 
   sessions Session[] @relation(name: "session-user")
+  posts    Post[]    @relation(name: "post-author-user")
+
+  permissionAssignment Json @default("{ \"POSTS_READ\": true, \"POSTS_CREATE\": true}")
 
   @@unique([userId, tenantId])
   @@unique([email, tenantId])
@@ -67,4 +71,23 @@ model Session {
   @@unique([sessionId, tenantId])
   @@index([tenantId])
   @@index([userId])
+}
+
+model Post {
+  postId String @id() @default(uuid())
+
+  tenant   Tenant @relation(name: "post-tenant", fields: [tenantId], references: [tenantId], onDelete: Cascade)
+  tenantId String
+
+  text String
+
+  author       User?   @relation(name: "post-author-user", fields: [authorUserId], references: [userId], onDelete: SetNull)
+  authorUserId String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([postId, tenantId])
+  @@index([tenantId])
+  @@index([authorUserId])
 }

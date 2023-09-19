@@ -10,3 +10,9 @@ export const TenantCache = new LRUCache<string, TenantCacheEntry>({
   max: Env.TENANTS_CACHE_MAX_ENTRIES,
   ttl: Env.TENANTS_CACHE_TTL_SECONDS * 1000,
 });
+
+export function invalidateTenantCacheEntryBySubdomain(
+  builtInSubdomain: string
+) {
+  TenantCache.delete(builtInSubdomain);
+}

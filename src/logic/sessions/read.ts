@@ -13,6 +13,7 @@ import { fetchUser } from "~/db/models/users";
 import { updateSessionIdleExpiresAt } from "~/logic/sessions/update";
 import type { ResolvedSession } from "~/logic/sessions/types";
 import { SessionCache } from "~/logic/sessions/cache";
+import { PermissionAssignmentSchema } from "~/logic/permissions/PermissionAssignment";
 
 export async function getSessionFromCookieAndTenantId(
   cookie: Cookie,
@@ -88,8 +89,10 @@ async function getSessionWithCacheAndHandleInvalidationAndReplacement(
     replaced = true;
   }
 
-  // We always need to update the idle expires at date
-  session = await updateSessionIdleExpiresAt(target);
+  if (!replaced) {
+    // We always need to update the idle expires at date -> only if not replaced
+    session = await updateSessionIdleExpiresAt(target);
+  }
 
   // Assemble response with user data
   const user = await fetchUser({
@@ -113,6 +116,9 @@ async function getSessionWithCacheAndHandleInvalidationAndReplacement(
       tenantId: user.tenantId,
       name: user.name,
       email: user.email,
+      permissionAssignment: PermissionAssignmentSchema.parse(
+        user.permissionAssignment
+      ),
     },
   };
 

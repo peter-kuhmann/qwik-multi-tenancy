@@ -15,10 +15,12 @@ export default function showToastsFromQueryParams(
   for (const key of searchParams.keys()) {
     const definitionKey = `${key}=${searchParams.get(key)}`;
     const definition = definitions[definitionKey];
-    showToast(definition.message, definition.options);
+    if (definition) {
+      showToast(definition.message, definition.options);
 
-    if (removeQueryParams) {
-      searchParams.delete(key);
+      if (removeQueryParams) {
+        searchParams.delete(key);
+      }
     }
   }
 

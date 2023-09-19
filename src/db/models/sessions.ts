@@ -57,3 +57,14 @@ export async function deleteSession(target: TargetSession) {
     },
   });
 }
+
+export function markUserSessionAsToBeReplaced(userId: string) {
+  return getPrisma().session.updateMany({
+    where: {
+      userId: userId,
+    },
+    data: {
+      toBeReplaced: true,
+    },
+  });
+}

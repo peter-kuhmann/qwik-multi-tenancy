@@ -10,12 +10,12 @@ import {
 } from "qwik-ionicons";
 import { z } from "zod";
 import AuthFlowJwtManager from "~/crypto/AuthFlowJwtManager";
-import { redirectToHomeIfNoTenantOrLoggedIn } from "~/utils/redirects";
+import { redirectIfNoTenantOrLoggedIn } from "~/utils/redirects";
 import { sendSignUpConfirmationLinkMail } from "~/mail/send/auth";
 import { getTenantByUrl } from "~/logic/tenants/read";
 import { tenantHead } from "~/utils/head";
 
-export const onGet: RequestHandler = redirectToHomeIfNoTenantOrLoggedIn;
+export const onGet: RequestHandler = redirectIfNoTenantOrLoggedIn;
 
 export default component$(() => {
   const signUpAction = useSignUpAction();

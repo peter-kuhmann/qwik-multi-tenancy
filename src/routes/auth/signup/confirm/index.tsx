@@ -47,5 +47,6 @@ async function createNewUser(url: URL, tenant: ResolvedTenant) {
     tenantId: tenant.id,
     email: payload.email,
     name: payload.name,
+    permissionAssignment: { POSTS_READ: true, POSTS_CREATE: true },
   });
 }

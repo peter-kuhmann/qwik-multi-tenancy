@@ -5,13 +5,13 @@ import { Form, routeAction$, zod$ } from "@builder.io/qwik-city";
 import { ChevronBackOutline, LogInOutline, MailOutline } from "qwik-ionicons";
 import AuthFlowJwtManager from "~/crypto/AuthFlowJwtManager";
 import { z } from "zod";
-import { redirectToHomeIfNoTenantOrLoggedIn } from "~/utils/redirects";
 import { fetchUserByEmail } from "~/db/models/users";
 import { getTenantByUrl } from "~/logic/tenants/read";
 import { sendLoginConfirmationLinkMail } from "~/mail/send/auth";
 import { tenantHead } from "~/utils/head";
+import { redirectIfNoTenantOrLoggedIn } from "~/utils/redirects";
 
-export const onGet: RequestHandler = redirectToHomeIfNoTenantOrLoggedIn;
+export const onGet: RequestHandler = redirectIfNoTenantOrLoggedIn;
 
 export default component$(() => {
   const loginAction = useLoginAction();

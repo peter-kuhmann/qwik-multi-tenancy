@@ -10,6 +10,14 @@
   display: none;
 }
 
+.ionicon path:not([fill="none"]) {
+  fill: currentColor;
+}
+
+.ionicon ellipse:not([fill="none"]) {
+  fill: currentColor;
+}
+
 html, body {
   width: 100%;
   height: 100%;
@@ -22,14 +30,14 @@ html, body {
 }
 
 .ionicon {
-  width: 1.15em;
-  height: 1.15em;
+  width: 1.2em;
+  height: 1.2em;
   vertical-align: sub;
   display: inline-block;
 }
 
 .btn {
-  @apply normal-case;
+  @apply normal-case no-animation;
 }
 
 .text-h1 { @apply text-3xl; }
@@ -54,4 +62,8 @@ ul {
 
 a {
   @apply text-sky-600 hover:underline;
+}
+
+hr {
+  @apply w-full;
 }
